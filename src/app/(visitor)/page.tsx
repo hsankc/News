@@ -2,6 +2,7 @@ import HeroSection from '@/components/news/HeroSection';
 import CategorySection from '@/components/news/CategorySection';
 import ColumnistsSection from '@/components/news/ColumnistsSection';
 import GallerySection from '@/components/news/GallerySection';
+import Ticker from '@/components/ui/Ticker';
 
 export default function Home() {
   return (

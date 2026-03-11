@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronLeft, Facebook, Twitter, MessageCircle, Clock } from 'lucide-react';
+import { ChevronLeft, Share2, Facebook, Twitter, MessageCircle, Clock } from 'lucide-react';
 import { heroNews, latestNews } from '@/lib/mockData';
 
 export default function HaberDetay({ params }: { params: { id: string } }) {
@@ -70,14 +70,14 @@ export default function HaberDetay({ params }: { params: { id: string } }) {
                 {news.summary}
               </p>
               <p className="mb-4">
-                Çanakkale&apos;nin nabzını tutan haber merkezimize ulaşan bilgilere göre, {news.title} konusu bugün kentin en çok konuşulan başlıkları arasında yer aldı. Yerel kaynaklardan edinilen detaylar, bölge halkı için büyük önem taşıyor.
+                Çanakkale'nin nabzını tutan haber merkezimize ulaşan bilgilere göre, {news.title} konusu bugün kentin en çok konuşulan başlıkları arasında yer aldı. Yerel kaynaklardan edinilen detaylar, bölge halkı için büyük önem taşıyor.
               </p>
               <p className="mb-4">
                 Olayın ardından yetkililer tarafından yapılan açıklamalarda, sürecin titizlikle takip edildiği ve gerekli tüm önlemlerin alındığı belirtildi. Özellikle {news.category} alanında yaşanan bu gelişme, ilerleyen günlerde de gündemi meşgul etmeye devam edecek gibi görünüyor.
               </p>
               <div className="my-8 p-6 bg-gray-50 rounded-xl border-l-4 border-red-600">
                 <p className="font-medium text-gray-900 mb-0 italic">
-                  &quot;Haberin en doğru ve hızlı kaynağı olarak gelişmeleri takip etmeye devam ediyoruz. Ayrıntılar için bizi takipte kalın.&quot;
+                  "Haberin en doğru ve hızlı kaynağı olarak gelişmeleri takip etmeye devam ediyoruz. Ayrıntılar için bizi takipte kalın."
                 </p>
               </div>
               <p>
