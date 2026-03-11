@@ -100,7 +100,7 @@ export default function ServicesBar() {
   return (
     <div className="container mx-auto px-4">
       {/* Services Icons Bar */}
-      <div className="flex items-center gap-2 md:gap-2.5 overflow-x-auto pb-4 pt-2 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
+      <div className="flex items-center gap-2 md:gap-2.5 overflow-x-auto pb-2 pt-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] -mx-4 px-4 md:mx-0 md:px-0">
         {services.map((svc) => {
           const Icon = svc.icon;
           const isActive = activePanel === svc.id;
