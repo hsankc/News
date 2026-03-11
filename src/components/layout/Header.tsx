@@ -3,13 +3,14 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Menu, Sun, X, LogIn, Moon, ChevronRight, Share2 } from 'lucide-react';
+import { Search, Menu, Sun, X, LogIn, Moon, ChevronRight, Share2, ChevronDown, Pill, Clock, Star, Trophy } from 'lucide-react';
 import { categories } from '@/lib/mockData';
 import Ticker from '../ui/Ticker';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [activeService, setActiveService] = useState<string | null>(null);
 
   return (
     <>
@@ -174,6 +175,148 @@ export default function Header() {
                            </li>
                         ))}
                      </ul>
+                  </div>
+
+                  {/* SERVİSLER */}
+                  <div className="mt-8 border-t border-slate-100 pt-8">
+                     <span className="text-[10px] font-black text-slate-300 uppercase tracking-[0.3em] block mb-4">Servisler</span>
+                     <div className="space-y-2">
+                        
+                        {/* Nöbetçi Eczaneler */}
+                        <button 
+                          onClick={() => setActiveService(activeService === 'eczane' ? null : 'eczane')}
+                          className={`w-full flex items-center justify-between p-4 rounded-2xl group transition-all ${activeService === 'eczane' ? 'bg-green-50 border border-green-200' : 'bg-slate-50 hover:bg-green-50'}`}
+                        >
+                          <div className="flex items-center gap-3">
+                            <Pill className="h-5 w-5 text-green-600" />
+                            <span className="font-bold text-slate-700 uppercase text-sm tracking-widest">Nöbetçi Eczaneler</span>
+                          </div>
+                          <ChevronDown className={`h-4 w-4 text-slate-300 transition-transform ${activeService === 'eczane' ? 'rotate-180 text-green-600' : ''}`} />
+                        </button>
+                        {activeService === 'eczane' && (
+                          <div className="bg-green-50/50 rounded-2xl p-4 space-y-3 border border-green-100">
+                            {[
+                              { name: "Merkez Eczanesi", adres: "Cevatpaşa Mah. No:12", tel: "0286 217 00 00" },
+                              { name: "Güven Eczanesi", adres: "Barbaros Mah. No:45", tel: "0286 213 00 00" },
+                              { name: "Kordon Eczanesi", adres: "Kemalpaşa Mah. No:78", tel: "0286 218 00 00" },
+                              { name: "Yeni Eczane", adres: "İnönü Cad. No:33", tel: "0286 212 00 00" },
+                            ].map((ecz, i) => (
+                              <div key={i} className="bg-white rounded-xl p-3 shadow-sm">
+                                <p className="font-bold text-green-800 text-sm">{ecz.name}</p>
+                                <p className="text-xs text-gray-500 mt-1">{ecz.adres}</p>
+                                <p className="text-xs text-green-600 font-bold mt-1">{ecz.tel}</p>
+                              </div>
+                            ))}
+                            <p className="text-[9px] text-center text-gray-400 font-bold uppercase tracking-widest mt-2">Çanakkale Merkez • Bugün</p>
+                          </div>
+                        )}
+
+                        {/* Namaz Vakitleri */}
+                        <button 
+                          onClick={() => setActiveService(activeService === 'namaz' ? null : 'namaz')}
+                          className={`w-full flex items-center justify-between p-4 rounded-2xl group transition-all ${activeService === 'namaz' ? 'bg-blue-50 border border-blue-200' : 'bg-slate-50 hover:bg-blue-50'}`}
+                        >
+                          <div className="flex items-center gap-3">
+                            <Clock className="h-5 w-5 text-blue-600" />
+                            <span className="font-bold text-slate-700 uppercase text-sm tracking-widest">Namaz Vakitleri</span>
+                          </div>
+                          <ChevronDown className={`h-4 w-4 text-slate-300 transition-transform ${activeService === 'namaz' ? 'rotate-180 text-blue-600' : ''}`} />
+                        </button>
+                        {activeService === 'namaz' && (
+                          <div className="bg-blue-50/50 rounded-2xl p-4 border border-blue-100">
+                            <div className="grid grid-cols-2 gap-2">
+                              {[
+                                { vakit: "İmsak", saat: "05:42" },
+                                { vakit: "Güneş", saat: "07:08" },
+                                { vakit: "Öğle", saat: "13:15" },
+                                { vakit: "İkindi", saat: "16:38" },
+                                { vakit: "Akşam", saat: "19:12" },
+                                { vakit: "Yatsı", saat: "20:32" },
+                              ].map((v, i) => (
+                                <div key={i} className="bg-white rounded-xl p-3 text-center shadow-sm">
+                                  <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest">{v.vakit}</p>
+                                  <p className="text-lg font-black text-blue-900 mt-1">{v.saat}</p>
+                                </div>
+                              ))}
+                            </div>
+                            <p className="text-[9px] text-center text-gray-400 font-bold uppercase tracking-widest mt-3">Çanakkale • {new Date().toLocaleDateString('tr-TR')}</p>
+                          </div>
+                        )}
+
+                        {/* Burçlar */}
+                        <button 
+                          onClick={() => setActiveService(activeService === 'burc' ? null : 'burc')}
+                          className={`w-full flex items-center justify-between p-4 rounded-2xl group transition-all ${activeService === 'burc' ? 'bg-purple-50 border border-purple-200' : 'bg-slate-50 hover:bg-purple-50'}`}
+                        >
+                          <div className="flex items-center gap-3">
+                            <Star className="h-5 w-5 text-purple-600" />
+                            <span className="font-bold text-slate-700 uppercase text-sm tracking-widest">Burçlar</span>
+                          </div>
+                          <ChevronDown className={`h-4 w-4 text-slate-300 transition-transform ${activeService === 'burc' ? 'rotate-180 text-purple-600' : ''}`} />
+                        </button>
+                        {activeService === 'burc' && (
+                          <div className="bg-purple-50/50 rounded-2xl p-4 border border-purple-100">
+                            <div className="grid grid-cols-4 gap-2">
+                              {[
+                                { name: "Koç", icon: "♈" }, { name: "Boğa", icon: "♉" },
+                                { name: "İkizler", icon: "♊" }, { name: "Yengeç", icon: "♋" },
+                                { name: "Aslan", icon: "♌" }, { name: "Başak", icon: "♍" },
+                                { name: "Terazi", icon: "♎" }, { name: "Akrep", icon: "♏" },
+                                { name: "Yay", icon: "♐" }, { name: "Oğlak", icon: "♑" },
+                                { name: "Kova", icon: "♒" }, { name: "Balık", icon: "♓" },
+                              ].map((b, i) => (
+                                <button key={i} className="flex flex-col items-center gap-1 p-2 bg-white rounded-xl hover:bg-purple-100 transition-all shadow-sm">
+                                  <span className="text-xl">{b.icon}</span>
+                                  <span className="text-[8px] font-black uppercase tracking-wider text-purple-700">{b.name}</span>
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Puan Durumu */}
+                        <button 
+                          onClick={() => setActiveService(activeService === 'puan' ? null : 'puan')}
+                          className={`w-full flex items-center justify-between p-4 rounded-2xl group transition-all ${activeService === 'puan' ? 'bg-emerald-50 border border-emerald-200' : 'bg-slate-50 hover:bg-emerald-50'}`}
+                        >
+                          <div className="flex items-center gap-3">
+                            <Trophy className="h-5 w-5 text-emerald-600" />
+                            <span className="font-bold text-slate-700 uppercase text-sm tracking-widest">Puan Durumu</span>
+                          </div>
+                          <ChevronDown className={`h-4 w-4 text-slate-300 transition-transform ${activeService === 'puan' ? 'rotate-180 text-emerald-600' : ''}`} />
+                        </button>
+                        {activeService === 'puan' && (
+                          <div className="bg-emerald-50/50 rounded-2xl p-3 border border-emerald-100 overflow-x-auto">
+                            <table className="w-full text-xs">
+                              <thead>
+                                <tr className="text-emerald-600 font-black text-[10px] uppercase">
+                                  <th className="py-1 px-1 text-left">#</th>
+                                  <th className="py-1 px-1 text-left">Takım</th>
+                                  <th className="py-1 px-1 text-center">O</th>
+                                  <th className="py-1 px-1 text-center">P</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {[
+                                  { p: 1, n: "Galatasaray", o: 25, pt: 61 },
+                                  { p: 2, n: "Fenerbahçe", o: 25, pt: 57 },
+                                  { p: 3, n: "Trabzonspor", o: 25, pt: 54 },
+                                  { p: 4, n: "Beşiktaş", o: 25, pt: 46 },
+                                  { p: 5, n: "Başakşehir", o: 25, pt: 42 },
+                                  { p: 6, n: "Göztepe", o: 25, pt: 42 },
+                                ].map((t) => (
+                                  <tr key={t.p} className="border-t border-emerald-100">
+                                    <td className="py-2 px-1 font-bold text-gray-400">{t.p}</td>
+                                    <td className="py-2 px-1 font-bold text-gray-800">{t.n}</td>
+                                    <td className="py-2 px-1 text-center text-gray-500">{t.o}</td>
+                                    <td className="py-2 px-1 text-center font-black text-gray-900">{t.pt}</td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        )}
+                     </div>
                   </div>
 
                   <div className="mt-8 border-t border-slate-100 pt-8">

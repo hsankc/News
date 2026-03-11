@@ -204,7 +204,7 @@ export default function AddNewsPage() {
               <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Canlı SEO Testi</span>
             </div>
             <div className="relative z-10 space-y-3">
-              <p className="text-blue-400 font-bold text-xs hover:underline cursor-pointer italic">https://canakkalehaber.com/...</p>
+              <p className="text-blue-400 font-bold text-xs hover:underline cursor-pointer italic">https://truvahaber.com/...</p>
               <h4 className="font-black text-lg leading-tight uppercase italic tracking-tighter">Haber Başlığı Burada Önizlenecek...</h4>
               <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed font-medium">Spot metnin Google arama sonuçlarındaki büyüleyici önizlemesi burada şekillenecek...</p>
             </div>

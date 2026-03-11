@@ -1,3 +1,5 @@
+"use client";
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronLeft, Share2, Facebook, Twitter, MessageCircle, Clock } from 'lucide-react';
@@ -7,6 +9,9 @@ export default function HaberDetay({ params }: { params: { id: string } }) {
   // Combine all news to find the right one
   const allNews = [...heroNews, ...latestNews];
   const news = allNews.find(n => n.id.toString() === params.id) || allNews[0];
+
+  const shareUrl = typeof window !== 'undefined' ? `${window.location.origin}/haber/${news.id}` : '';
+  const shareText = encodeURIComponent(news.title);
 
   return (
     <main className="min-h-screen bg-gray-50 pb-20">
@@ -42,15 +47,15 @@ export default function HaberDetay({ params }: { params: { id: string } }) {
                 <div className="flex items-center gap-4">
                   <span className="font-bold text-gray-700">Paylaş:</span>
                   <div className="flex gap-2">
-                    <button className="p-2 bg-blue-600 text-white rounded-full hover:opacity-80 transition-opacity">
+                    <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener noreferrer" className="p-2 bg-blue-600 text-white rounded-full hover:opacity-80 transition-opacity">
                       <Facebook className="h-4 w-4" />
-                    </button>
-                    <button className="p-2 bg-sky-500 text-white rounded-full hover:opacity-80 transition-opacity">
+                    </a>
+                    <a href={`https://twitter.com/intent/tweet?text=${shareText}&url=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener noreferrer" className="p-2 bg-sky-500 text-white rounded-full hover:opacity-80 transition-opacity">
                       <Twitter className="h-4 w-4" />
-                    </button>
-                    <button className="p-2 bg-green-500 text-white rounded-full hover:opacity-80 transition-opacity">
+                    </a>
+                    <a href={`https://wa.me/?text=${shareText}%20${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener noreferrer" className="p-2 bg-green-500 text-white rounded-full hover:opacity-80 transition-opacity">
                       <MessageCircle className="h-4 w-4" />
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>

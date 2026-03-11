@@ -66,7 +66,13 @@ export default function AuthorsPage() {
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <button className="p-4 bg-slate-50 text-slate-400 hover:bg-slate-900 hover:text-white rounded-2xl transition-all shadow-sm">
+                  <button 
+                    onClick={() => showToast(`${author.name} İÇİN YETKİ PANELİ AÇILDI`)}
+                    className="flex items-center gap-2 px-4 py-3 bg-slate-900 text-white rounded-2xl hover:bg-red-600 transition-all shadow-sm text-[10px] font-black uppercase tracking-widest whitespace-nowrap"
+                  >
+                    <ShieldCheck className="h-4 w-4" /> YETKİ TANIMLA
+                  </button>
+                  <button onClick={() => showToast('EDİTÖR PANELİ AÇILDI')} className="p-4 bg-slate-50 text-slate-400 hover:bg-slate-900 hover:text-white rounded-2xl transition-all shadow-sm">
                     <Edit2 className="h-4 w-4" />
                   </button>
                   <button 

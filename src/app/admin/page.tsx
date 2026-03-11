@@ -12,13 +12,18 @@ import {
   ArrowDownRight,
   CheckCircle2,
   Calendar,
-  LayoutDashboard
+  LayoutDashboard,
+  Zap,
+  X
 } from 'lucide-react';
 import { latestNews } from '@/lib/mockData';
 
 export default function AdminDashboard() {
   const router = useRouter();
   const [notification, setNotification] = useState<string | null>(null);
+  const [isFlashActive, setIsFlashActive] = useState(false);
+  const [showFlashModal, setShowFlashModal] = useState(false);
+  const [flashText, setFlashText] = useState('');
 
   const stats = [
     { label: 'Bugünkü Okunma', value: '42.850', trend: '+12.5%', isUp: true, icon: Eye, color: 'text-blue-600', bg: 'bg-blue-50' },
@@ -32,6 +37,13 @@ export default function AdminDashboard() {
     setTimeout(() => setNotification(null), 3000);
   };
 
+  const handleFlashPublish = () => {
+    if (!flashText) return;
+    setIsFlashActive(true);
+    setShowFlashModal(false);
+    showToast('FLASH HABER YAYINLANDI! ⚡');
+  };
+
   return (
     <div className="space-y-8 animate-fade-in relative">
       {/* Toast Notification Simulation */}
@@ -42,13 +54,51 @@ export default function AdminDashboard() {
         </div>
       )}
 
+      {/* Flash Haber Banner */}
+      {isFlashActive && (
+        <div className="bg-red-600 text-white p-4 rounded-2xl md:rounded-[2rem] flex items-center justify-between animate-pulse shadow-xl shadow-red-200">
+          <div className="flex items-center gap-4">
+            <div className="bg-white/20 p-2 rounded-lg"><Zap className="h-5 w-5 fill-white" /></div>
+            <p className="font-black text-xs md:text-sm uppercase tracking-widest italic">{flashText || "SON DAKİKA: ÇANAKKALE'DE ÖNEMLİ GELİŞME!"}</p>
+          </div>
+          <button onClick={() => setIsFlashActive(false)} className="hover:rotate-90 transition-transform"><X className="h-5 w-5" /></button>
+        </div>
+      )}
+
+      {/* Flash Haber Modal */}
+      {showFlashModal && (
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[110] flex items-center justify-center p-4">
+          <div className="bg-white rounded-[3rem] p-10 max-w-lg w-full shadow-2xl animate-slide-up border border-slate-100">
+            <div className="flex items-center gap-4 mb-8">
+              <div className="bg-red-50 p-4 rounded-2xl text-red-600"><Zap className="h-8 w-8" /></div>
+              <h3 className="text-3xl font-black tracking-tighter uppercase italic italic">Flaş <span className="text-red-600">Haber</span></h3>
+            </div>
+            <textarea 
+              value={flashText}
+              onChange={(e) => setFlashText(e.target.value)}
+              placeholder="Flaş haber başlığını buraya girin..."
+              className="w-full h-32 bg-slate-50 border-2 border-transparent focus:border-red-500 rounded-2xl p-6 font-bold text-slate-700 outline-none transition-all resize-none shadow-inner"
+            />
+            <div className="flex gap-4 mt-8">
+              <button onClick={() => setShowFlashModal(false)} className="flex-1 py-4 font-black uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-colors">Vazgeç</button>
+              <button 
+                onClick={handleFlashPublish}
+                className="flex-1 bg-red-600 text-white py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-red-700 transition-all shadow-lg"
+              >
+                Yayınla
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 md:gap-6">
         <div>
           <h1 className="text-2xl md:text-5xl font-black text-gray-900 mb-1 tracking-tighter uppercase italic">
             HOŞGELDİN, <span className="text-red-600 underline decoration-red-100 decoration-4 md:decoration-8 underline-offset-4">HASAN</span>
           </h1>
           <div className="flex items-center gap-2 text-slate-400 font-black text-[9px] md:text-[10px] uppercase tracking-[0.2em] md:tracking-[0.3em]">
-            <Calendar className="h-3 w-3 md:h-4 md:w-4 text-red-500" /> 11 MART 2026 • MERKEZ OFİS
+            <Calendar className="h-3 w-3 md:h-4 md:w-4 text-red-500" /> {new Date().toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' }).toUpperCase()} • MERKEZ OFİS
           </div>
         </div>
         <button 
@@ -109,6 +159,57 @@ export default function AdminDashboard() {
           </div>
         </div>
 
+        {/* Weekly Chart */}
+        <div className="bg-white rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-10 shadow-sm border border-slate-50 flex flex-col">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h3 className="font-black text-xl text-slate-900 tracking-tighter uppercase italic">Haftalık Performans</h3>
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Ziyaretçi trafiği analizi</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 bg-red-600 rounded-full"></div>
+              <span className="text-[10px] font-black text-slate-900 uppercase tracking-widest">Canlı</span>
+            </div>
+          </div>
+          
+          <div className="flex-1 flex items-end gap-2 md:gap-4 h-48 md:h-64 pt-4">
+            {[
+              { day: 'Pzt', val: 40, active: false },
+              { day: 'Sal', val: 65, active: false },
+              { day: 'Çar', val: 45, active: false },
+              { day: 'Per', val: 85, active: false },
+              { day: 'Cum', val: 70, active: false },
+              { day: 'Cmt', val: 95, active: true },
+              { day: 'Paz', val: 30, active: false },
+            ].map((d, i) => (
+              <div key={i} className="flex-1 flex flex-col items-center gap-2 group cursor-pointer">
+                <div className="w-full relative flex flex-col justify-end h-full">
+                  <div 
+                    style={{ height: `${d.val}%` }} 
+                    className={`w-full rounded-t-xl md:rounded-t-2xl transition-all duration-1000 group-hover:opacity-80 ${d.active ? 'bg-red-600 shadow-lg shadow-red-200' : 'bg-slate-100'}`}
+                  >
+                    <div className="absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-900 text-white text-[10px] font-black px-2 py-1 rounded shadow-xl whitespace-nowrap z-20">
+                      {d.val}K +
+                    </div>
+                  </div>
+                </div>
+                <span className={`text-[8px] md:text-[10px] font-black uppercase tracking-tighter ${d.active ? 'text-red-600' : 'text-slate-300'}`}>{d.day}</span>
+              </div>
+            ))}
+          </div>
+          
+          <div className="mt-8 pt-6 border-t border-slate-50 grid grid-cols-2 gap-4">
+            <div>
+              <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">En Yoğun Gün</p>
+              <p className="text-sm font-black text-slate-900 tracking-tighter italic">CUMARTESİ (95.4K)</p>
+            </div>
+            <div className="text-right">
+              <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Ortalama Artış</p>
+              <p className="text-sm font-black text-green-600 tracking-tighter italic">+18.4% 🔥</p>
+            </div>
+          </div>
+        </div>
+
         {/* Quick Actions */}
         <div className="bg-slate-900 rounded-[2.5rem] md:rounded-[3rem] p-8 md:p-12 text-white shadow-2xl relative overflow-hidden group flex flex-col min-h-[400px]">
           <div className="absolute -top-10 -right-10 p-8 opacity-5 scale-150 rotate-12 group-hover:rotate-45 transition-transform duration-[2000ms]">
@@ -127,7 +228,7 @@ export default function AdminDashboard() {
                 HABER OLUŞTUR
               </Link>
               <button 
-                onClick={() => showToast('FLASH HABER MODU AKTİF')}
+                onClick={() => setShowFlashModal(true)}
                 className="w-full bg-slate-800 text-slate-300 font-black py-4 md:py-6 rounded-2xl md:rounded-[2rem] hover:bg-slate-700 transition-all text-[10px] md:text-sm tracking-widest border border-white/5 uppercase"
               >
                 FLASH HABER
@@ -150,6 +251,30 @@ export default function AdminDashboard() {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Recent Activity */}
+      <div className="bg-white rounded-[2.5rem] md:rounded-[3rem] shadow-sm border border-slate-50 overflow-hidden">
+        <div className="p-6 md:p-10 pb-4 flex items-center justify-between border-b border-slate-50 bg-slate-50/30">
+          <h3 className="font-black text-lg md:text-2xl text-slate-900 tracking-tighter italic uppercase">Son Aktiviteler</h3>
+          <Link href="/admin/bildirimler" className="text-red-600 text-[8px] md:text-[10px] font-black uppercase tracking-widest hover:text-red-700 underline underline-offset-4">TÜMÜNÜ GÖR</Link>
+        </div>
+        <div className="divide-y divide-slate-50">
+          {[
+            { time: '2 dk önce', text: 'Mehmet K. "1915 Çanakkale Köprüsü" haberine yorum yaptı', type: 'comment', color: 'bg-blue-500' },
+            { time: '15 dk önce', text: '"Bağ Bozumu Festivali başladı" haberi yayınlandı', type: 'publish', color: 'bg-green-500' },
+            { time: '1 saat önce', text: 'Galeri\'ye 4 yeni görsel eklendi', type: 'media', color: 'bg-purple-500' },
+            { time: '2 saat önce', text: 'Ayşe D. "Çanakkale siyaseti" haberine yorum yaptı', type: 'comment', color: 'bg-blue-500' },
+            { time: '3 saat önce', text: 'Sistem performans optimizasyonu tamamlandı', type: 'system', color: 'bg-amber-500' },
+            { time: '5 saat önce', text: '"ÇOMÜ Öğretim Üyesine ödül" haberi güncellendi', type: 'edit', color: 'bg-sky-500' },
+          ].map((item, i) => (
+            <div key={i} className="p-4 md:p-6 flex items-center gap-4 hover:bg-slate-50/50 transition-all">
+              <div className={`w-2.5 h-2.5 ${item.color} rounded-full flex-shrink-0`} />
+              <p className="flex-1 text-sm text-slate-600 font-medium">{item.text}</p>
+              <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest whitespace-nowrap">{item.time}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>

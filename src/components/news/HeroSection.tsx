@@ -71,6 +71,18 @@ export default function HeroSection() {
                 alt={currentNews.title}
                 className="w-full h-full object-cover"
               />
+
+              {/* Top-Left Category & Date Badge */}
+              <div className="absolute top-4 left-4 md:top-8 md:left-8 flex items-center gap-2 z-10">
+                <span className="bg-red-600 text-white text-[10px] md:text-xs font-black uppercase tracking-[0.3em] py-2 px-4 rounded-full shadow-lg shadow-red-900/40">
+                  {currentNews.category || "GÜNDEM"}
+                </span>
+                <div className="flex items-center gap-1.5 bg-black/40 backdrop-blur-sm text-white text-[10px] md:text-xs font-bold py-2 px-3 rounded-full">
+                    <Clock className="h-3 w-3" />
+                    {currentNews.date}
+                </div>
+              </div>
+
               {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent flex flex-col justify-end p-8 md:p-16">
                 <motion.div 
@@ -79,15 +91,6 @@ export default function HeroSection() {
                   transition={{ delay: 0.2 }}
                   className="max-w-4xl"
                 >
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="bg-red-600 text-white text-[10px] md:text-xs font-black uppercase tracking-[0.3em] py-2 px-4 rounded-full shadow-lg shadow-red-900/40">
-                      {currentNews.category || "GÜNDEM"}
-                    </span>
-                    <div className="flex items-center gap-2 text-white/60 text-[10px] font-bold uppercase tracking-widest">
-                        <Clock className="h-3 w-3" />
-                        {currentNews.date}
-                    </div>
-                  </div>
                   <Link href={`/haber/${currentNews.id}`}>
                     <h2 className="text-white text-3xl md:text-5xl lg:text-6xl font-black leading-[1.1] md:leading-[1.05] tracking-tighter mb-6 hover:text-red-500 transition-colors cursor-pointer drop-shadow-2xl italic">
                       {currentNews.title}
@@ -101,7 +104,24 @@ export default function HeroSection() {
                      <Link href={`/haber/${currentNews.id}`} className="bg-white text-slate-900 px-10 py-5 rounded-full font-black text-xs uppercase tracking-[0.2em] hover:bg-red-600 hover:text-white transition-all shadow-xl hover:scale-105 active:scale-95">
                         HABERİ OKU
                      </Link>
-                     <button className="p-5 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-white/20 transition-all border border-white/10">
+                     <button 
+                       onClick={async () => {
+                         const shareData = {
+                           title: currentNews.title,
+                           text: currentNews.summary,
+                           url: `${window.location.origin}/haber/${currentNews.id}`
+                         };
+                         try {
+                           if (navigator.share) {
+                             await navigator.share(shareData);
+                           } else {
+                             await navigator.clipboard.writeText(shareData.url);
+                             alert('Link kopyalandı!');
+                           }
+                         } catch (e) { /* user cancelled */ }
+                       }}
+                       className="p-5 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-white/20 transition-all border border-white/10"
+                     >
                         <Share2 className="h-5 w-5" />
                      </button>
                   </div>

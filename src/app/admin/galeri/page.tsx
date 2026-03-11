@@ -9,7 +9,7 @@ import {
   Eye,
   Camera,
   Filter,
-  UserPlus
+
 } from 'lucide-react';
 import { gallery } from '@/lib/mockData';
 
@@ -58,12 +58,6 @@ export default function GalleryPage() {
           >
             <Plus className="h-5 w-5" /> MEDYA YÜKLE
           </button>
-           <button 
-          onClick={() => showToast('YENİ YAZAR KAYIT FORMU AÇILDI')}
-          className="flex items-center gap-3 px-10 py-5 bg-slate-900 text-white font-black text-xs uppercase tracking-widest hover:bg-slate-800 rounded-[2rem] shadow-2xl transition-all hover:scale-105 active:scale-95"
-        >
-          <UserPlus className="h-5 w-5 text-red-500" /> YENİ YAZAR EKLE
-        </button>
         </div>
       </div>
 
