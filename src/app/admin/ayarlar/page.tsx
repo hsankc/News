@@ -3,23 +3,15 @@
 import { useState } from 'react';
 import { 
   Save, 
-  Settings as SettingsIcon, 
   Globe, 
-  Mail, 
-  Bell, 
-  Lock,
   CheckCircle2,
   Smartphone,
-  Camera,
-  Filter,
-  UserPlus,
   Layout
 } from 'lucide-react';
 
 export default function SettingsPage() {
   const [notification, setNotification] = useState<string | null>(null);
   const [maintenance, setMaintenance] = useState(false);
-  const [toggles, setToggles] = useState([true, true, false]);
 
   const showToast = (msg: string) => {
     setNotification(msg);
@@ -40,7 +32,7 @@ export default function SettingsPage() {
           <h1 className="text-3xl font-black text-slate-900 mb-2 tracking-tighter uppercase italic">
             SİSTEM <span className="text-red-600 underline decoration-slate-200 decoration-8 underline-offset-4">AYARLARI</span>
           </h1>
-          <p className="text-slate-400 text-xs font-black uppercase tracking-widest">Portal'ın genel konfigürasyonunu buradan yönetin</p>
+          <p className="text-slate-400 text-xs font-black uppercase tracking-widest">Portal&apos;ın genel konfigürasyonunu buradan yönetin</p>
         </div>
         <button 
           onClick={() => showToast('AYARLAR BAŞARIYLA KAYDEDİLDİ')}

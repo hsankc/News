@@ -4,8 +4,6 @@ import { useState } from 'react';
 import { 
   Plus, 
   Trash2, 
-  Search, 
-  Image as ImageIcon,
   CheckCircle2,
   Download,
   Eye,

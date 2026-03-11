@@ -2,14 +2,10 @@
 
 import { useState } from 'react';
 import { 
-  Plus, 
   Edit2, 
   Trash2, 
-  Mail, 
-  Search, 
   UserPlus,
   CheckCircle2,
-  MoreVertical,
   ShieldCheck
 } from 'lucide-react';
 import { authors } from '@/lib/mockData';
