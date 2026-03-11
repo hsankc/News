@@ -72,7 +72,7 @@ export default function AdminLayout({
       <aside className={`bg-slate-900 text-white flex flex-col fixed inset-y-0 left-0 w-72 shadow-2xl z-[80] transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="p-8 border-b border-white/5 flex items-center justify-between">
           <Link href="/" className="flex flex-col group overflow-hidden whitespace-nowrap">
-            <span className="text-2xl font-black text-white tracking-tighter group-hover:text-red-600 transition-colors italic">ÇANAKKALE</span>
+            <span className="text-2xl font-black text-white tracking-tighter group-hover:text-red-600 transition-colors italic">TRUVA</span>
             <span className="text-[10px] font-black text-red-600 tracking-[0.4em] -mt-1 uppercase">Haber Admin</span>
           </Link>
           <button 

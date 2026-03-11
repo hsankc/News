@@ -81,7 +81,7 @@ export default function HaberDetay({ params }: { params: { id: string } }) {
                 </p>
               </div>
               <p>
-                Konuyla ilgili olarak bölgedeki sivil toplum kuruluşları ve vatandaşların görüşleri de alınmaya başlandı. Çanakkale Haber ekibi olarak sahada yaptığımız incelemelerde, halkın bu gelişmeye yönelik tepkilerini ve beklentilerini yakından gözlemledik. Detaylı raporumuz çok yakında burada olacak.
+                Konuyla ilgili olarak bölgedeki sivil toplum kuruluşları ve vatandaşların görüşleri de alınmaya başlandı. Truva Haber ekibi olarak sahada yaptığımız incelemelerde, halkın bu gelişmeye yönelik tepkilerini ve beklentilerini yakından gözlemledik. Detaylı raporumuz çok yakında burada olacak.
               </p>
             </div>
           </article>

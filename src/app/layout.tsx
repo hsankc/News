@@ -4,8 +4,8 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Çanakkale Haber - Güncel, Haber, Son Dakika',
-  description: "Çanakkale Haber, Son Dakika Çanakkale Haberleri, Çanakkale'de ve ilçelerindeki güncel, gündem, siyaset, asayiş, spor haberlerinin güvenilir kaynağı.",
+  title: 'Truva Haber - Güncel, Haber, Son Dakika',
+  description: "Truva Haber, Son Dakika Çanakkale Haberleri, Çanakkale'de ve ilçelerindeki güncel, gündem, siyaset, asayiş, spor haberlerinin güvenilir kaynağı.",
 };
 
 export default function RootLayout({

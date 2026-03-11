@@ -8,11 +8,11 @@ export default function Footer() {
           {/* Brand Info */}
           <div className="col-span-1 md:col-span-1 border-r border-gray-800 pr-6">
             <Link href="/" className="inline-flex flex-col mb-6">
-              <span className="font-extrabold text-3xl text-white leading-none">ÇANAKKALE</span>
+              <span className="font-extrabold text-3xl text-white leading-none">TRUVA</span>
               <span className="font-medium text-base text-red-500 tracking-[0.2em] leading-none mt-1">HABER</span>
             </Link>
             <p className="text-sm text-gray-400 mb-6 leading-relaxed">
-              Çanakkale ve ilçelerinin en güvenilir, tarafsız ve güncel haber kaynağı. Bölgenin nabzını tutmaya devam ediyoruz.
+              Çanakkale ve ilçelerinin en güvenilir, tarafsız ve güncel haber kaynağı. Truva Haber olarak bölgenin nabzını tutmaya devam ediyoruz.
             </p>
           </div>
 
@@ -74,7 +74,7 @@ export default function Footer() {
         </div>
 
         <div className="pt-8 border-t border-gray-800 text-center text-xs text-gray-500 font-medium">
-          <p>&copy; {new Date().getFullYear()} Çanakkale Haber. Tüm hakları saklıdır. İçerikler kaynak gösterilmeden kullanılamaz.</p>
+          <p>&copy; {new Date().getFullYear()} Truva Haber. Tüm hakları saklıdır. İçerikler kaynak gösterilmeden kullanılamaz.</p>
         </div>
       </div>
     </footer>

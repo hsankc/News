@@ -35,7 +35,7 @@ export default function LoginPage() {
         {/* Logo Area */}
         <div className="text-center mb-10">
           <Link href="/" className="inline-flex flex-col">
-            <span className="text-4xl font-black text-white tracking-tighter">ÇANAKKALE</span>
+            <span className="text-4xl font-black text-white tracking-tighter">TRUVA</span>
             <span className="text-sm font-bold text-red-500 tracking-[0.4em] -mt-1 uppercase">Haber Yönetim</span>
           </Link>
           <p className="text-slate-400 mt-4 font-medium uppercase tracking-widest text-xs">Editör Girişi</p>
@@ -106,7 +106,7 @@ export default function LoginPage() {
         </div>
 
         <p className="text-center mt-8 text-slate-500 text-xs font-medium">
-          © 2026 Çanakkale Haber Portal • Tüm Hakları Saklıdır
+          © 2026 Truva Haber Portal • Tüm Hakları Saklıdır
         </p>
       </div>
     </div>

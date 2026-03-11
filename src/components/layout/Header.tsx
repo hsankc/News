@@ -43,11 +43,9 @@ export default function Header() {
               <Menu className="h-6 w-6" />
             </button>
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="bg-red-600 text-white font-black text-3xl md:text-5xl p-2.5 rounded-2xl tracking-tighter shadow-xl shadow-red-200 group-hover:scale-105 transition-transform italic">
-                ÇH
-              </div>
+              <img src="/logo.png" alt="Truva Haber" className="w-12 h-12 md:w-16 md:h-16 rounded-2xl shadow-xl shadow-red-200 group-hover:scale-105 transition-transform object-cover" />
               <div className="flex flex-col">
-                <span className="font-black text-2xl md:text-4xl text-slate-900 leading-none tracking-tighter italic">ÇANAKKALE</span>
+                <span className="font-black text-2xl md:text-4xl text-slate-900 leading-none tracking-tighter italic">TRUVA</span>
                 <span className="font-bold text-xs md:text-sm text-red-600 tracking-[0.4em] leading-none mt-1">HABER</span>
               </div>
             </Link>
@@ -124,7 +122,7 @@ export default function Header() {
               {/* Drawer Header */}
               <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-slate-50">
                 <div className="flex items-center gap-3">
-                    <div className="bg-red-600 text-white font-black text-2xl p-2 rounded-xl italic">ÇH</div>
+                    <img src="/logo.png" alt="Truva Haber" className="w-10 h-10 rounded-xl object-cover" />
                     <span className="font-black text-lg tracking-tighter">MENÜ</span>
                 </div>
                 <button 
@@ -196,7 +194,7 @@ export default function Header() {
                      <div className="flex-1 h-px bg-slate-200"></div>
                   </div>
                   <p className="text-[10px] text-center text-slate-400 font-bold uppercase tracking-widest">
-                     © 2026 Çanakkale Haber
+                     © 2026 Truva Haber
                   </p>
               </div>
             </motion.div>

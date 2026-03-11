@@ -55,7 +55,7 @@ export default function SettingsPage() {
           <div className="flex-1 space-y-6">
             <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">SİTE BAŞLIĞI (TITLE)</label>
-                <input type="text" defaultValue="Çanakkale Haber - Şehrin Bir Numaralı Haber Kaynağı" className="w-full bg-slate-50 border-2 border-transparent focus:border-red-500 rounded-2xl p-4 font-bold text-slate-700 outline-none transition-all" />
+                <input type="text" defaultValue="Truva Haber - Şehrin Bir Numaralı Haber Kaynağı" className="w-full bg-slate-50 border-2 border-transparent focus:border-red-500 rounded-2xl p-4 font-bold text-slate-700 outline-none transition-all" />
             </div>
              <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">SİTE SLOGANI</label>
