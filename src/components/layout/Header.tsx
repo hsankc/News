@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Menu, Sun, X, LogIn, Moon, ChevronRight, Share2, ChevronDown, Pill, Clock, Star, Trophy } from 'lucide-react';
@@ -11,12 +11,21 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [activeService, setActiveService] = useState<string | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-100 shadow-sm">
+      <header className="fixed top-0 z-50 w-full bg-white border-b border-gray-100 shadow-sm transition-all duration-300">
         {/* Desktop Top Bar */}
-        <div className="bg-slate-900 text-white text-[10px] py-2 px-4 hidden md:block uppercase font-black tracking-widest">
+        <div className={`bg-slate-900 text-white text-[10px] px-4 hidden md:block uppercase font-black tracking-widest transition-all duration-300 origin-top ${isScrolled ? 'h-0 py-0 opacity-0 overflow-hidden' : 'py-2 opacity-100'}`}>
           <div className="container mx-auto flex justify-between items-center">
             <div className="flex gap-8 items-center">
               <span>{new Date().toLocaleDateString('tr-TR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
@@ -35,28 +44,28 @@ export default function Header() {
         </div>
 
         {/* Main Logo & Action Bar */}
-        <div className="container mx-auto px-4 py-4 md:py-6 flex items-center justify-between">
+        <div className={`container mx-auto px-4 flex items-center justify-between transition-all duration-300 ${isScrolled ? 'py-2 md:py-3' : 'py-4 md:py-6'}`}>
           <div className="flex items-center gap-6">
             <button 
                 onClick={() => setIsMenuOpen(true)}
-                className="p-3 bg-slate-50 hover:bg-red-50 text-slate-900 hover:text-red-600 rounded-2xl transition-all active:scale-90"
+                className={`bg-slate-50 hover:bg-red-50 text-slate-900 hover:text-red-600 rounded-2xl transition-all active:scale-90 ${isScrolled ? 'p-2' : 'p-3'}`}
             >
-              <Menu className="h-6 w-6" />
+              <Menu className={`transition-all duration-300 ${isScrolled ? 'h-5 w-5' : 'h-6 w-6'}`} />
             </button>
             <Link href="/" className="flex items-center gap-3 group">
-              <img src="/logo.png" alt="Truva Haber" className="w-12 h-12 md:w-16 md:h-16 rounded-2xl shadow-xl shadow-red-200 group-hover:scale-105 transition-transform object-cover" />
-              <div className="flex flex-col">
-                <span className="font-black text-2xl md:text-4xl text-slate-900 leading-none tracking-tighter italic">TRUVA</span>
-                <span className="font-bold text-xs md:text-sm text-red-600 tracking-[0.4em] leading-none mt-1">HABER</span>
+              <img src="/logo.png" alt="Truva Haber" className={`rounded-2xl shadow-xl shadow-red-200 group-hover:scale-105 transition-all duration-300 object-cover ${isScrolled ? 'w-8 h-8 md:w-10 md:h-10' : 'w-12 h-12 md:w-16 md:h-16'}`} />
+              <div className="flex flex-col justify-center">
+                <span className={`font-black text-slate-900 leading-none tracking-tighter italic transition-all duration-300 ${isScrolled ? 'text-xl md:text-2xl' : 'text-2xl md:text-4xl'}`}>TRUVA</span>
+                <span className={`font-bold text-red-600 tracking-[0.4em] leading-none transition-all duration-300 ${isScrolled ? 'text-[8px] md:text-[10px] mt-0.5' : 'text-xs md:text-sm mt-1'}`}>HABER</span>
               </div>
             </Link>
           </div>
 
-          <div className="hidden lg:flex items-center bg-slate-50 rounded-2xl px-6 py-3 border border-slate-100 focus-within:border-red-500 focus-within:bg-white transition-all w-96 shadow-inner">
+          <div className={`hidden lg:flex items-center bg-slate-50 rounded-2xl border border-slate-100 focus-within:border-red-500 focus-within:bg-white transition-all shadow-inner ${isScrolled ? 'px-4 py-2 w-72' : 'px-6 py-3 w-96'}`}>
             <input 
               type="text" 
               placeholder="Haber ve içerik ara..." 
-              className="bg-transparent border-none outline-none w-full text-sm font-bold placeholder:text-slate-400"
+              className={`bg-transparent border-none outline-none w-full font-bold placeholder:text-slate-400 transition-all duration-300 ${isScrolled ? 'text-xs' : 'text-sm'}`}
             />
             <button className="text-slate-400 hover:text-red-600 transition-colors">
               <Search className="h-5 w-5" />
@@ -64,8 +73,8 @@ export default function Header() {
           </div>
           
           <div className="flex items-center gap-2">
-             <button className="p-3 bg-slate-50 hover:bg-red-50 text-slate-900 hover:text-red-600 rounded-2xl md:hidden">
-                <Search className="h-6 w-6" />
+             <button className={`bg-slate-50 hover:bg-red-50 text-slate-900 hover:text-red-600 rounded-2xl md:hidden transition-all ${isScrolled ? 'p-2' : 'p-3'}`}>
+                <Search className={`transition-all duration-300 ${isScrolled ? 'h-5 w-5' : 'h-6 w-6'}`} />
              </button>
              <Link 
                 href="/admin" 
@@ -78,7 +87,7 @@ export default function Header() {
         </div>
 
         {/* Categories Bar - Desktop Only */}
-        <nav className="bg-white border-t border-slate-50 hidden md:block">
+        <nav className={`bg-white border-t border-slate-50 hidden md:block transition-all duration-500 origin-top ${isScrolled ? 'h-0 opacity-0 overflow-hidden' : 'h-14 opacity-100'}`}>
           <div className="container mx-auto px-4">
             <ul className="flex items-center justify-between font-black text-[13px] text-slate-600 w-full uppercase tracking-widest py-1">
               {categories.map((cat) => (
@@ -96,8 +105,12 @@ export default function Header() {
         </nav>
 
         {/* Ticker integration */}
-        <Ticker />
+        <div className={`transition-all duration-500 origin-top ${isScrolled ? 'h-0 opacity-0 overflow-hidden' : 'opacity-100'}`}>
+          <Ticker />
+        </div>
       </header>
+      {/* Spacer to absorb the fixed header's height and prevent layout shift jumps */}
+      <div className="h-[112px] md:h-[234px] w-full shrink-0 pointer-events-none" />
 
       {/* Premium Mobile Menu Drawer */}
       <AnimatePresence>
