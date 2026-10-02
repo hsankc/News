@@ -39,6 +39,7 @@ const seciliIlanlar: KayipIlani[] = [
   { id: 'k3', tarih: '2026-09-30', tip: 'tekne-ruhsati', bolge: 'Gökçeada', metin: 'Kuzu Limanı\'na kayıtlı balıkçı teknemin ruhsatını kaybettim. Hükümsüzdür. Hüseyin Ateş' },
   { id: 'k4', tarih: '2026-09-29', tip: 'kimlik-karti', bolge: 'Gelibolu', metin: 'T.C. kimlik kartımı kaybettim. Hükümsüzdür. Emre Aydın' },
   { id: 'k5', tarih: '2026-09-27', tip: 'vergi-levhasi', bolge: 'Merkez', metin: 'Kordon Gıda Ltd. Şti.\'ne ait vergi levhası kaybolmuştur. Hükümsüzdür.' },
+  { id: 'k23', tarih: '2026-09-25', tip: 'ogrenci-kimligi', bolge: 'Merkez', metin: 'Çanakkale Onsekiz Mart Üniversitesi öğrenci kimlik kartımı kaybettim. Hükümsüzdür. Hasan Kaşıkcı' },
   { id: 'k6', tarih: '2026-09-26', tip: 'ogrenci-kimligi', bolge: 'Biga', metin: 'ÇOMÜ Biga İktisadi ve İdari Bilimler Fakültesi öğrenci kimliğimi kaybettim. Hükümsüzdür. Selin Koç' },
   { id: 'k7', tarih: '2026-09-24', tip: 'arac-ruhsati', bolge: 'Çan', metin: '17 plakalı aracıma ait ruhsatı kaybettim. Hükümsüzdür. Burak Şahin' },
   { id: 'k8', tarih: '2026-09-22', tip: 'diploma', bolge: 'Ezine', metin: 'Ezine Anadolu Lisesi\'nden 2015 yılında aldığım lise diplomamı kaybettim. Hükümsüzdür. Elif Çetin' },
