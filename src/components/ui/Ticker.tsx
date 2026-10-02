@@ -1,16 +1,17 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { TrendingUp, TrendingDown, Sun } from 'lucide-react';
+import { TrendingUp, TrendingDown } from 'lucide-react';
+import type { LiveData } from '@/lib/liveData';
 
-const financeData = [
-  { label: 'BIST', value: '13.177', change: '+0,01%', isUp: true },
-  { label: 'DOLAR', value: '44,0830', change: '+0,04%', isUp: true },
-  { label: 'EURO', value: '51,2315', change: '-0,04%', isUp: false },
-  { label: 'ALTIN', value: '7.364,71', change: '+0,12%', isUp: true },
-];
+// BIST için ücretsiz canlı kaynak yok, sabit gösterilir
+const bist = { label: 'BIST', value: '13.177', change: '+0,01%', isUp: true };
 
-export default function Ticker() {
+export default function Ticker({ doviz, hava }: Pick<LiveData, 'doviz' | 'hava'>) {
+  const financeData = [
+    bist,
+    ...doviz.map(d => ({ label: d.etiket, value: d.kur, change: d.degisim, isUp: d.yukselis })),
+  ];
   const marqueeItems = [...financeData, ...financeData, ...financeData]; // Duplicate for seamless scroll
 
   return (
@@ -55,10 +56,10 @@ export default function Ticker() {
 
             {/* Weather Item integrated into marquee */}
             <div className="flex items-center gap-3 md:gap-5 bg-blue-50/30 px-4 md:px-6 py-1.5 md:py-2 rounded-xl border border-blue-50 flex-shrink-0">
-                <Sun className="h-4 w-4 md:h-5 md:w-5 text-blue-500" />
+                <span className="text-base md:text-lg leading-none">{hava.icon}</span>
                 <div className="flex flex-col">
                     <span className="text-[7px] md:text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mb-0.5">Çanakkale</span>
-                    <span className="text-[10px] md:text-sm font-black text-slate-900 tracking-tight leading-none">18°C</span>
+                    <span className="text-[10px] md:text-sm font-black text-slate-900 tracking-tight leading-none">{hava.derece}°C</span>
                 </div>
             </div>
           </motion.div>

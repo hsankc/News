@@ -267,6 +267,14 @@ export const getCategoryBySlug = (slug: string) =>
 export const getNewsByCategory = (categoryName: string) =>
   allNews.filter(n => n.category === categoryName);
 
+export const searchNews = (query: string) => {
+  const q = query.trim().toLocaleLowerCase('tr');
+  if (!q) return [];
+  return allNews.filter(n =>
+    `${n.title} ${n.summary} ${n.category}`.toLocaleLowerCase('tr').includes(q)
+  );
+};
+
 export const authors = columnists.map(c => ({
   ...c,
   role: "Köşe Yazarı",

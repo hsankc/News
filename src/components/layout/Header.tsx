@@ -2,16 +2,27 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Menu, Sun, X, LogIn, Moon, ChevronRight, Share2, ChevronDown, Pill, Clock, Star, Trophy } from 'lucide-react';
 import { categories } from '@/lib/mockData';
+import { eczaneler, burclar, puanDurumu } from '@/lib/servicesData';
+import type { LiveData } from '@/lib/liveData';
 import Ticker from '../ui/Ticker';
 
-export default function Header() {
+export default function Header({ live }: { live: LiveData }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [activeService, setActiveService] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const router = useRouter();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const q = searchQuery.trim();
+    if (q) router.push(`/ara?q=${encodeURIComponent(q)}`);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,7 +42,7 @@ export default function Header() {
               <span>{new Date().toLocaleDateString('tr-TR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
               <div className="flex items-center gap-2 text-slate-400">
                 <Sun className="h-3 w-3" />
-                <span>Çanakkale: 18°C Güneşli</span>
+                <span>Çanakkale: {live.hava.derece}°C {live.hava.durum}</span>
               </div>
             </div>
 
@@ -61,21 +72,23 @@ export default function Header() {
             </Link>
           </div>
 
-          <div className={`hidden lg:flex items-center bg-slate-50 rounded-2xl border border-slate-100 focus-within:border-red-500 focus-within:bg-white transition-all shadow-inner ${isScrolled ? 'px-4 py-2 w-72' : 'px-6 py-3 w-96'}`}>
-            <input 
-              type="text" 
-              placeholder="Haber ve içerik ara..." 
+          <form onSubmit={handleSearch} className={`hidden lg:flex items-center bg-slate-50 rounded-2xl border border-slate-100 focus-within:border-red-500 focus-within:bg-white transition-all shadow-inner ${isScrolled ? 'px-4 py-2 w-72' : 'px-6 py-3 w-96'}`}>
+            <input
+              type="search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Haber ve içerik ara..."
               className={`bg-transparent border-none outline-none w-full font-bold placeholder:text-slate-400 transition-all duration-300 ${isScrolled ? 'text-xs' : 'text-sm'}`}
             />
-            <button className="text-slate-400 hover:text-red-600 transition-colors">
+            <button type="submit" aria-label="Ara" className="text-slate-400 hover:text-red-600 transition-colors">
               <Search className="h-5 w-5" />
             </button>
-          </div>
-          
+          </form>
+
           <div className="flex items-center gap-2">
-             <button className={`bg-slate-50 hover:bg-red-50 text-slate-900 hover:text-red-600 rounded-2xl md:hidden transition-all ${isScrolled ? 'p-2' : 'p-3'}`}>
+             <Link href="/ara" aria-label="Ara" className={`bg-slate-50 hover:bg-red-50 text-slate-900 hover:text-red-600 rounded-2xl lg:hidden transition-all ${isScrolled ? 'p-2' : 'p-3'}`}>
                 <Search className={`transition-all duration-300 ${isScrolled ? 'h-5 w-5' : 'h-6 w-6'}`} />
-             </button>
+             </Link>
              <Link 
                 href="/admin" 
                 className="hidden md:flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-red-600 transition-all shadow-lg active:scale-95"
@@ -106,7 +119,7 @@ export default function Header() {
 
         {/* Ticker integration */}
         <div className={`transition-all duration-500 origin-top ${isScrolled ? 'h-0 opacity-0 overflow-hidden' : 'opacity-100'}`}>
-          <Ticker />
+          <Ticker doviz={live.doviz} hava={live.hava} />
         </div>
       </header>
       {/* Spacer to absorb the fixed header's height and prevent layout shift jumps */}
@@ -208,12 +221,7 @@ export default function Header() {
                         </button>
                         {activeService === 'eczane' && (
                           <div className="bg-green-50/50 rounded-2xl p-4 space-y-3 border border-green-100">
-                            {[
-                              { name: "Merkez Eczanesi", adres: "Cevatpaşa Mah. No:12", tel: "0286 217 00 00" },
-                              { name: "Güven Eczanesi", adres: "Barbaros Mah. No:45", tel: "0286 213 00 00" },
-                              { name: "Kordon Eczanesi", adres: "Kemalpaşa Mah. No:78", tel: "0286 218 00 00" },
-                              { name: "Yeni Eczane", adres: "İnönü Cad. No:33", tel: "0286 212 00 00" },
-                            ].map((ecz, i) => (
+                            {eczaneler.map((ecz, i) => (
                               <div key={i} className="bg-white rounded-xl p-3 shadow-sm">
                                 <p className="font-bold text-green-800 text-sm">{ecz.name}</p>
                                 <p className="text-xs text-gray-500 mt-1">{ecz.adres}</p>
@@ -238,14 +246,7 @@ export default function Header() {
                         {activeService === 'namaz' && (
                           <div className="bg-blue-50/50 rounded-2xl p-4 border border-blue-100">
                             <div className="grid grid-cols-2 gap-2">
-                              {[
-                                { vakit: "İmsak", saat: "05:42" },
-                                { vakit: "Güneş", saat: "07:08" },
-                                { vakit: "Öğle", saat: "13:15" },
-                                { vakit: "İkindi", saat: "16:38" },
-                                { vakit: "Akşam", saat: "19:12" },
-                                { vakit: "Yatsı", saat: "20:32" },
-                              ].map((v, i) => (
+                              {live.namaz.map((v, i) => (
                                 <div key={i} className="bg-white rounded-xl p-3 text-center shadow-sm">
                                   <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest">{v.vakit}</p>
                                   <p className="text-lg font-black text-blue-900 mt-1">{v.saat}</p>
@@ -270,14 +271,7 @@ export default function Header() {
                         {activeService === 'burc' && (
                           <div className="bg-purple-50/50 rounded-2xl p-4 border border-purple-100">
                             <div className="grid grid-cols-4 gap-2">
-                              {[
-                                { name: "Koç", icon: "♈" }, { name: "Boğa", icon: "♉" },
-                                { name: "İkizler", icon: "♊" }, { name: "Yengeç", icon: "♋" },
-                                { name: "Aslan", icon: "♌" }, { name: "Başak", icon: "♍" },
-                                { name: "Terazi", icon: "♎" }, { name: "Akrep", icon: "♏" },
-                                { name: "Yay", icon: "♐" }, { name: "Oğlak", icon: "♑" },
-                                { name: "Kova", icon: "♒" }, { name: "Balık", icon: "♓" },
-                              ].map((b, i) => (
+                              {burclar.map((b, i) => (
                                 <button key={i} className="flex flex-col items-center gap-1 p-2 bg-white rounded-xl hover:bg-purple-100 transition-all shadow-sm">
                                   <span className="text-xl">{b.icon}</span>
                                   <span className="text-[8px] font-black uppercase tracking-wider text-purple-700">{b.name}</span>
@@ -310,14 +304,7 @@ export default function Header() {
                                 </tr>
                               </thead>
                               <tbody>
-                                {[
-                                  { p: 1, n: "Galatasaray", o: 25, pt: 61 },
-                                  { p: 2, n: "Fenerbahçe", o: 25, pt: 57 },
-                                  { p: 3, n: "Trabzonspor", o: 25, pt: 54 },
-                                  { p: 4, n: "Beşiktaş", o: 25, pt: 46 },
-                                  { p: 5, n: "Başakşehir", o: 25, pt: 42 },
-                                  { p: 6, n: "Göztepe", o: 25, pt: 42 },
-                                ].map((t) => (
+                                {puanDurumu.map((t) => (
                                   <tr key={t.p} className="border-t border-emerald-100">
                                     <td className="py-2 px-1 font-bold text-gray-400">{t.p}</td>
                                     <td className="py-2 px-1 font-bold text-gray-800">{t.n}</td>

@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { Pill, Clock, Star, Trophy, X, CloudSun, TrendingUp, Calendar, Newspaper, Ship, Bus } from 'lucide-react';
+import { eczaneler, burclar, puanDurumu, fikstur, mansetler, gestasSeferleri, otobusSaatleri } from '@/lib/servicesData';
+import type { LiveData } from '@/lib/liveData';
 
 const services = [
   { id: 'gestas', name: 'Gestaş Seferleri', icon: Ship, colorFrom: 'from-blue-500', colorTo: 'to-cyan-600', activeBg: 'bg-blue-50', activeBorder: 'border-blue-200' },
@@ -16,84 +18,7 @@ const services = [
   { id: 'manset', name: 'Manşetler', icon: Newspaper, colorFrom: 'from-slate-600', colorTo: 'to-gray-800', activeBg: 'bg-slate-50', activeBorder: 'border-slate-200' },
 ];
 
-const eczaneler = [
-  { name: "Merkez Eczanesi", adres: "Cevatpaşa Mah. No:12", tel: "0286 217 00 00" },
-  { name: "Güven Eczanesi", adres: "Barbaros Mah. No:45", tel: "0286 213 00 00" },
-  { name: "Kordon Eczanesi", adres: "Kemalpaşa Mah. No:78", tel: "0286 218 00 00" },
-  { name: "Yeni Eczane", adres: "İnönü Cad. No:33", tel: "0286 212 00 00" },
-];
-
-const namazVakitleri = [
-  { vakit: "İmsak", saat: "05:42" },
-  { vakit: "Güneş", saat: "07:08" },
-  { vakit: "Öğle", saat: "13:15" },
-  { vakit: "İkindi", saat: "16:38" },
-  { vakit: "Akşam", saat: "19:12" },
-  { vakit: "Yatsı", saat: "20:32" },
-];
-
-const burclar = [
-  { name: "Koç", icon: "♈", yorum: "Enerjiniz yüksek, yeni başlangıçlar için ideal." },
-  { name: "Boğa", icon: "♉", yorum: "Maddi konularda dikkatli olun." },
-  { name: "İkizler", icon: "♊", yorum: "Sosyal çevreniz genişleyecek." },
-  { name: "Yengeç", icon: "♋", yorum: "Aile bağlarınıza önem verin." },
-  { name: "Aslan", icon: "♌", yorum: "Liderlik özellikleriniz parıldıyor." },
-  { name: "Başak", icon: "♍", yorum: "İş hayatında fırsatlar doğacak." },
-  { name: "Terazi", icon: "♎", yorum: "İlişkilerde uyum artacak." },
-  { name: "Akrep", icon: "♏", yorum: "Sezgileriniz güçlü bugün." },
-  { name: "Yay", icon: "♐", yorum: "Seyahat fırsatları kapınızda." },
-  { name: "Oğlak", icon: "♑", yorum: "Sabırlı olmaya devam edin." },
-  { name: "Kova", icon: "♒", yorum: "Yenilikçi fikirleriniz ilgi görecek." },
-  { name: "Balık", icon: "♓", yorum: "Hayalleriniz gerçekleşmeye yakın." },
-];
-
-const puanDurumu = [
-  { p: 1, n: "Galatasaray", o: 25, g: 19, av: "+41", pt: 61 },
-  { p: 2, n: "Fenerbahçe", o: 25, g: 16, av: "+32", pt: 57 },
-  { p: 3, n: "Trabzonspor", o: 25, g: 16, av: "+22", pt: 54 },
-  { p: 4, n: "Beşiktaş", o: 25, g: 13, av: "+15", pt: 46 },
-  { p: 5, n: "Başakşehir", o: 25, g: 12, av: "+17", pt: 42 },
-  { p: 6, n: "Göztepe", o: 25, g: 11, av: "+10", pt: 42 },
-];
-
-const fikstur = [
-  { tarih: "15 Mar", saat: "20:00", ev: "Galatasaray", deplasman: "Fenerbahçe", lig: "Süper Lig" },
-  { tarih: "16 Mar", saat: "19:00", ev: "Beşiktaş", deplasman: "Trabzonspor", lig: "Süper Lig" },
-  { tarih: "16 Mar", saat: "17:00", ev: "Başakşehir", deplasman: "Göztepe", lig: "Süper Lig" },
-  { tarih: "22 Mar", saat: "20:00", ev: "Fenerbahçe", deplasman: "Beşiktaş", lig: "Süper Lig" },
-  { tarih: "23 Mar", saat: "19:00", ev: "Trabzonspor", deplasman: "Galatasaray", lig: "Süper Lig" },
-];
-
-const dovizKurlari = [
-  { birim: "USD/TRY", alis: "44.08", satis: "44.16", degisim: "+0.04%", yukselis: true },
-  { birim: "EUR/TRY", alis: "51.23", satis: "51.35", degisim: "-0.04%", yukselis: false },
-  { birim: "GBP/TRY", alis: "59.10", satis: "59.28", degisim: "-0.12%", yukselis: false },
-  { birim: "Altın/gr", alis: "7.364", satis: "7.381", degisim: "+0.12%", yukselis: true },
-  { birim: "Bitcoin", alis: "82.450", satis: "82.650", degisim: "+1.24%", yukselis: true },
-];
-
-const mansetler = [
-  { gazete: "Hürriyet", baslik: "Ekonomide yeni paket bekleniyor" },
-  { gazete: "Sabah", baslik: "Çanakkale'de turizm sezonu erken başladı" },
-  { gazete: "Milliyet", baslik: "Süper Lig'de kritik hafta" },
-  { gazete: "Sözcü", baslik: "Bahar yağmurları geliyor" },
-  { gazete: "Posta", baslik: "Akaryakıt fiyatlarında son durum" },
-];
-
-const gestasSeferleri = [
-  { kalkis: "Çanakkale", varis: "Eceabat", saatler: ["07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00"] },
-  { kalkis: "Eceabat", varis: "Çanakkale", saatler: ["07:15", "08:15", "09:15", "10:15", "11:15", "12:15", "13:15", "14:15"] },
-  { kalkis: "Çanakkale", varis: "Kilitbahir", saatler: ["07:30", "08:30", "09:30", "10:30", "11:30", "12:30", "13:30", "14:30"] },
-];
-
-const otobusSaatleri = [
-  { hat: "Ç9", guzergah: "SSK - İskele - Kepez", sure: "15 dk", durum: "Yaklaşıyor" },
-  { hat: "Ç11", guzergah: "Esenler - İskele - Kampüs", sure: "5 dk", durum: "Durakta" },
-  { hat: "Ç3", guzergah: "Kepez - Hastane - Kampüs", sure: "20 dk", durum: "Yolda" },
-  { hat: "Ç8", guzergah: "Sanayi - İskele - Hastane", sure: "12 dk", durum: "Yaklaşıyor" },
-];
-
-export default function ServicesBar() {
+export default function ServicesBar({ live }: { live: LiveData }) {
   const [activePanel, setActivePanel] = useState<string | null>(null);
   const [selectedBurc, setSelectedBurc] = useState<number | null>(null);
 
@@ -142,20 +67,15 @@ export default function ServicesBar() {
               {activePanel === 'hava' && (
                 <div className="flex flex-col md:flex-row items-center gap-4">
                   <div className="flex items-center gap-4 p-4 bg-gradient-to-br from-sky-50 to-blue-50 rounded-2xl flex-1 w-full">
-                    <div className="text-5xl">☀️</div>
+                    <div className="text-5xl">{live.hava.icon}</div>
                     <div>
-                      <p className="text-3xl font-black text-gray-900">18°C</p>
-                      <p className="text-sm text-gray-500 font-medium">Açık, Güneşli</p>
+                      <p className="text-3xl font-black text-gray-900">{live.hava.derece}°C</p>
+                      <p className="text-sm text-gray-500 font-medium">{live.hava.durum}</p>
                       <p className="text-xs text-sky-600 font-bold mt-1">Çanakkale</p>
                     </div>
                   </div>
                   <div className="grid grid-cols-4 gap-2 flex-1 w-full">
-                    {[
-                      { gun: "Sal", icon: "⛅", derece: "16°" },
-                      { gun: "Çar", icon: "🌧️", derece: "14°" },
-                      { gun: "Per", icon: "☁️", derece: "15°" },
-                      { gun: "Cum", icon: "☀️", derece: "19°" },
-                    ].map((g, i) => (
+                    {live.hava.tahmin.map((g, i) => (
                       <div key={i} className="text-center p-3 bg-gray-50 rounded-xl">
                         <p className="text-[10px] font-bold text-gray-400 uppercase">{g.gun}</p>
                         <p className="text-xl my-1">{g.icon}</p>
@@ -187,7 +107,7 @@ export default function ServicesBar() {
               {/* Namaz Vakitleri */}
               {activePanel === 'namaz' && (
                 <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
-                  {namazVakitleri.map((v, i) => (
+                  {live.namaz.map((v, i) => (
                     <div key={i} className="text-center p-3 bg-indigo-50/50 rounded-xl">
                       <p className="text-[10px] font-bold text-indigo-400 uppercase tracking-wider">{v.vakit}</p>
                       <p className="text-base font-black text-indigo-900 mt-1">{v.saat}</p>
@@ -203,17 +123,15 @@ export default function ServicesBar() {
                     <thead>
                       <tr className="text-amber-600 text-[10px] font-black uppercase border-b border-gray-100">
                         <th className="py-2 px-3 text-left">Birim</th>
-                        <th className="py-2 px-3 text-center">Alış</th>
-                        <th className="py-2 px-3 text-center">Satış</th>
+                        <th className="py-2 px-3 text-center">Kur (₺)</th>
                         <th className="py-2 px-3 text-right">Değişim</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {dovizKurlari.map((d, i) => (
+                      {live.doviz.map((d, i) => (
                         <tr key={i} className="border-b border-gray-50 hover:bg-gray-50">
                           <td className="py-2.5 px-3 font-bold text-gray-800">{d.birim}</td>
-                          <td className="py-2.5 px-3 text-center text-gray-600">{d.alis}</td>
-                          <td className="py-2.5 px-3 text-center text-gray-600">{d.satis}</td>
+                          <td className="py-2.5 px-3 text-center text-gray-600">{d.kur}</td>
                           <td className={`py-2.5 px-3 text-right font-bold ${d.yukselis ? 'text-green-600' : 'text-red-600'}`}>{d.degisim}</td>
                         </tr>
                       ))}
