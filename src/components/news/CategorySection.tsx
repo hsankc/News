@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { latestNews } from '@/lib/mockData';
 import NewsCard from './NewsCard';
 
-export default function CategorySection({ categoryName }: { categoryName: string }) {
+export default function CategorySection({ categoryName, href = "/kategori/son-haberler" }: { categoryName: string; href?: string }) {
   // Use mock data for now, filtering can be added later
   const news = latestNews;
 
@@ -16,7 +16,7 @@ export default function CategorySection({ categoryName }: { categoryName: string
               {categoryName}
             </h2>
           </div>
-          <Link href={`/${categoryName.toLowerCase()}`} className="text-sm font-semibold text-red-600 hover:text-red-800 transition-colors uppercase tracking-wider flex items-center">
+          <Link href={href} className="text-sm font-semibold text-red-600 hover:text-red-800 transition-colors uppercase tracking-wider flex items-center">
             Tümünü Gör
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />

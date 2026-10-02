@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Play } from 'lucide-react';
 import { galleryItems } from '@/lib/mockData';
 
-export default function GallerySection() {
+export default function GallerySection({ showAllLink = true }: { showAllLink?: boolean }) {
   return (
     <section className="py-12 bg-white">
       <div className="container mx-auto px-4">
@@ -14,9 +14,11 @@ export default function GallerySection() {
               Foto & Video Galeri
             </h2>
           </div>
-          <Link href="/galeri" className="text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors uppercase tracking-wider">
-            Tümünü Gör
-          </Link>
+          {showAllLink && (
+            <Link href="/galeri" className="text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors uppercase tracking-wider">
+              Tümünü Gör
+            </Link>
+          )}
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

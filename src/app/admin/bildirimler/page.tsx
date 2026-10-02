@@ -9,10 +9,10 @@ import {
   AlertTriangle,
   Settings,
   User,
-  Eye,
   Trash2,
   CheckCheck
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 const mockNotifications = [
   { id: 1, type: 'comment', title: 'Yeni Yorum', desc: 'Mehmet K. "1915 Çanakkale Köprüsü" haberine yorum yaptı.', time: '2 dakika önce', read: false },
@@ -27,7 +27,7 @@ const mockNotifications = [
   { id: 10, type: 'warning', title: 'Bozuk Link Tespit Edildi', desc: '3 haberde dış kaynak bağlantıları artık çalışmıyor.', time: 'Dün', read: true },
 ];
 
-const typeConfig: Record<string, { icon: any; bg: string; color: string }> = {
+const typeConfig: Record<string, { icon: LucideIcon; bg: string; color: string }> = {
   comment: { icon: MessageSquare, bg: 'bg-blue-50', color: 'text-blue-600' },
   article: { icon: FileText, bg: 'bg-green-50', color: 'text-green-600' },
   system: { icon: Settings, bg: 'bg-purple-50', color: 'text-purple-600' },

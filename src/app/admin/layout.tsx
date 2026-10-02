@@ -12,7 +12,6 @@ import {
   LogOut,
   Bell,
   Search,
-  CheckCircle2,
   Menu,
   ChevronLeft,
   MessageSquare,
@@ -28,7 +27,6 @@ export default function AdminLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [notification, setNotification] = useState<string | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [role, setRole] = useState<'admin' | 'yazar'>('admin');
 
@@ -82,14 +80,6 @@ export default function AdminLayout({
 
   return (
     <div className="min-h-screen bg-gray-50 flex overflow-x-hidden relative">
-      {/* Toast Notification Simulation */}
-      {notification && (
-        <div className="fixed top-24 right-8 z-[100] bg-slate-900 text-white px-6 py-4 rounded-2xl shadow-2xl border border-white/10 flex items-center gap-4 animate-slide-in">
-          <CheckCircle2 className="h-6 w-6 text-green-400" />
-          <p className="font-bold text-sm tracking-widest uppercase">{notification}</p>
-        </div>
-      )}
-
       {/* Sidebar Backdrop */}
       {isSidebarOpen && (
         <div 

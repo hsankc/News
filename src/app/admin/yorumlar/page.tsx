@@ -3,14 +3,11 @@
 import { useState } from 'react';
 import { 
   CheckCircle2, 
-  XCircle, 
   Trash2, 
   MessageSquare,
   ThumbsUp,
   ThumbsDown,
   Clock,
-  User,
-  Filter
 } from 'lucide-react';
 
 const mockComments = [

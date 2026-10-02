@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { latestNews } from '@/lib/mockData';
 
 const sonEklenenler = [
   { saat: "17:44", title: "Web Sitelerinde Performans ve Güvenlik İçin Altyapı Seçimi...", id: 8 },

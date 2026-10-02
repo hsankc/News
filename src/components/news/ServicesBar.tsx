@@ -65,10 +65,10 @@ const fikstur = [
 ];
 
 const dovizKurlari = [
-  { birim: "USD/TRY", alis: "38.42", satis: "38.56", degisim: "+0.32%", yukselis: true },
-  { birim: "EUR/TRY", alis: "41.18", satis: "41.35", degisim: "+0.18%", yukselis: true },
-  { birim: "GBP/TRY", alis: "48.72", satis: "48.95", degisim: "-0.12%", yukselis: false },
-  { birim: "Altın/gr", alis: "3.245", satis: "3.262", degisim: "+0.45%", yukselis: true },
+  { birim: "USD/TRY", alis: "44.08", satis: "44.16", degisim: "+0.04%", yukselis: true },
+  { birim: "EUR/TRY", alis: "51.23", satis: "51.35", degisim: "-0.04%", yukselis: false },
+  { birim: "GBP/TRY", alis: "59.10", satis: "59.28", degisim: "-0.12%", yukselis: false },
+  { birim: "Altın/gr", alis: "7.364", satis: "7.381", degisim: "+0.12%", yukselis: true },
   { birim: "Bitcoin", alis: "82.450", satis: "82.650", degisim: "+1.24%", yukselis: true },
 ];
 
@@ -100,7 +100,7 @@ export default function ServicesBar() {
   return (
     <div className="container mx-auto px-4">
       {/* Services Icons Bar */}
-      <div className="flex items-center gap-2 md:gap-2.5 overflow-x-auto pb-4 pt-2 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
+      <div className="flex items-center gap-2 md:gap-2.5 overflow-x-auto pb-4 pt-2 no-scrollbar -mx-4 px-4 md:mx-0 md:px-0">
         {services.map((svc) => {
           const Icon = svc.icon;
           const isActive = activePanel === svc.id;

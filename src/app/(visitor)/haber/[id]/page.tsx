@@ -1,17 +1,30 @@
-"use client";
-
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronLeft, Share2, Facebook, Twitter, MessageCircle, Clock } from 'lucide-react';
-import { heroNews, latestNews } from '@/lib/mockData';
+import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
+import { ChevronLeft, Clock } from 'lucide-react';
+import { allNews, latestNews, getNewsById } from '@/lib/mockData';
+import ShareButtons from '@/components/news/ShareButtons';
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return allNews.map(n => ({ id: n.id.toString() }));
+}
+
+export function generateMetadata({ params }: { params: { id: string } }): Metadata {
+  const news = getNewsById(params.id);
+  if (!news) return { title: 'Haber bulunamadı - Truva Haber' };
+  return {
+    title: `${news.title} - Truva Haber`,
+    description: news.summary,
+    openGraph: { title: news.title, description: news.summary, images: [news.image] },
+  };
+}
 
 export default function HaberDetay({ params }: { params: { id: string } }) {
-  // Combine all news to find the right one
-  const allNews = [...heroNews, ...latestNews];
-  const news = allNews.find(n => n.id.toString() === params.id) || allNews[0];
-
-  const shareUrl = typeof window !== 'undefined' ? `${window.location.origin}/haber/${news.id}` : '';
-  const shareText = encodeURIComponent(news.title);
+  const news = getNewsById(params.id);
+  if (!news) notFound();
 
   return (
     <main className="min-h-screen bg-gray-50 pb-20">
@@ -46,17 +59,7 @@ export default function HaberDetay({ params }: { params: { id: string } }) {
                 </div>
                 <div className="flex items-center gap-4">
                   <span className="font-bold text-gray-700">Paylaş:</span>
-                  <div className="flex gap-2">
-                    <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener noreferrer" className="p-2 bg-blue-600 text-white rounded-full hover:opacity-80 transition-opacity">
-                      <Facebook className="h-4 w-4" />
-                    </a>
-                    <a href={`https://twitter.com/intent/tweet?text=${shareText}&url=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener noreferrer" className="p-2 bg-sky-500 text-white rounded-full hover:opacity-80 transition-opacity">
-                      <Twitter className="h-4 w-4" />
-                    </a>
-                    <a href={`https://wa.me/?text=${shareText}%20${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener noreferrer" className="p-2 bg-green-500 text-white rounded-full hover:opacity-80 transition-opacity">
-                      <MessageCircle className="h-4 w-4" />
-                    </a>
-                  </div>
+                  <ShareButtons id={news.id} title={news.title} />
                 </div>
               </div>
             </div>
@@ -75,14 +78,14 @@ export default function HaberDetay({ params }: { params: { id: string } }) {
                 {news.summary}
               </p>
               <p className="mb-4">
-                Çanakkale'nin nabzını tutan haber merkezimize ulaşan bilgilere göre, {news.title} konusu bugün kentin en çok konuşulan başlıkları arasında yer aldı. Yerel kaynaklardan edinilen detaylar, bölge halkı için büyük önem taşıyor.
+                Çanakkale&apos;nin nabzını tutan haber merkezimize ulaşan bilgilere göre, {news.title} konusu bugün kentin en çok konuşulan başlıkları arasında yer aldı. Yerel kaynaklardan edinilen detaylar, bölge halkı için büyük önem taşıyor.
               </p>
               <p className="mb-4">
                 Olayın ardından yetkililer tarafından yapılan açıklamalarda, sürecin titizlikle takip edildiği ve gerekli tüm önlemlerin alındığı belirtildi. Özellikle {news.category} alanında yaşanan bu gelişme, ilerleyen günlerde de gündemi meşgul etmeye devam edecek gibi görünüyor.
               </p>
               <div className="my-8 p-6 bg-gray-50 rounded-xl border-l-4 border-red-600">
                 <p className="font-medium text-gray-900 mb-0 italic">
-                  "Haberin en doğru ve hızlı kaynağı olarak gelişmeleri takip etmeye devam ediyoruz. Ayrıntılar için bizi takipte kalın."
+                  &ldquo;Haberin en doğru ve hızlı kaynağı olarak gelişmeleri takip etmeye devam ediyoruz. Ayrıntılar için bizi takipte kalın.&rdquo;
                 </p>
               </div>
               <p>

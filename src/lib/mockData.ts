@@ -4,6 +4,7 @@ export const categories = [
   { id: 'asayis', name: 'Asayiş', href: '/kategori/asayis' },
   { id: 'spor', name: 'Spor', href: '/kategori/spor' },
   { id: 'politika', name: 'Politika', href: '/kategori/politika' },
+  { id: 'ekonomi', name: 'Ekonomi', href: '/kategori/ekonomi' },
   { id: 'kultur-sanat', name: 'Kültür Sanat', href: '/kategori/kultur-sanat' },
   { id: 'dunya', name: 'Dünya', href: '/kategori/dunya' },
 ];
@@ -75,7 +76,7 @@ export const latestNews = [
     title: "Kordon Boyunda Bahar Şenliği Coşkusu",
     summary: "Havaların ısınmasıyla beraber kordon boyunda düzenlenen bahar etkinlikleri vatandaşlardan yoğun ilgi gördü.",
     image: "/park.png",
-    category: "Genel",
+    category: "Yerel",
     date: "9 Mart 2026",
   },
   {
@@ -254,6 +255,17 @@ export const galleryItems = [
     type: "photo",
   },
 ];
+
+export const allNews = [...heroNews, ...latestNews];
+
+export const getNewsById = (id: string | number) =>
+  allNews.find(n => n.id.toString() === id.toString());
+
+export const getCategoryBySlug = (slug: string) =>
+  categories.find(c => c.id === slug);
+
+export const getNewsByCategory = (categoryName: string) =>
+  allNews.filter(n => n.category === categoryName);
 
 export const authors = columnists.map(c => ({
   ...c,

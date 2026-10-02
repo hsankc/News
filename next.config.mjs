@@ -8,13 +8,6 @@ const nextConfig = {
       },
     ],
   },
-  // Burası build hatalarını görmezden gelmeni sağlar:
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
 };
 
 export default nextConfig;

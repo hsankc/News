@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { 
   TrendingUp, 
   Eye, 
@@ -19,7 +18,6 @@ import {
 import { latestNews } from '@/lib/mockData';
 
 export default function AdminDashboard() {
-  const router = useRouter();
   const [notification, setNotification] = useState<string | null>(null);
   const [isFlashActive, setIsFlashActive] = useState(false);
   const [showFlashModal, setShowFlashModal] = useState(false);

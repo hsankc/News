@@ -32,7 +32,7 @@ export default function ColumnistsSection() {
                 {author.name}
               </h3>
               <p className="text-gray-400 text-sm mt-2 line-clamp-2 italic leading-relaxed">
-                "{author.title}"
+                &ldquo;{author.title}&rdquo;
               </p>
               <div className="mt-4 text-xs font-bold text-red-500 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
                 Yazıyı Oku

@@ -6,8 +6,7 @@ import { ChevronLeft, ChevronRight, Share2, Clock } from 'lucide-react';
 import Link from 'next/link';
 import { heroNews, latestNews } from '@/lib/mockData';
 
-// Combine hero and latest to get 20 items for the demo slider
-const allSliderNews = [...heroNews, ...latestNews, ...latestNews.map(n => ({ ...n, id: n.id + 100 }))].slice(0, 20);
+const allSliderNews = [...heroNews, ...latestNews].slice(0, 20);
 
 export default function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -118,7 +117,7 @@ export default function HeroSection() {
                              await navigator.clipboard.writeText(shareData.url);
                              alert('Link kopyalandı!');
                            }
-                         } catch (e) { /* user cancelled */ }
+                         } catch { /* user cancelled */ }
                        }}
                        className="p-5 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-white/20 transition-all border border-white/10"
                      >

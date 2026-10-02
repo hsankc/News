@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { TrendingUp, TrendingDown, Sun, Cloud, CloudRain } from 'lucide-react';
+import { TrendingUp, TrendingDown, Sun } from 'lucide-react';
 
 const financeData = [
   { label: 'BIST', value: '13.177', change: '+0,01%', isUp: true },

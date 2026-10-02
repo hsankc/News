@@ -23,11 +23,11 @@ export default function Footer() {
               Kategoriler
             </h3>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/gundem" className="hover:text-red-400 transition-colors">Gündem</Link></li>
-              <li><Link href="/yerel" className="hover:text-red-400 transition-colors">Yerel Haberler</Link></li>
-              <li><Link href="/asayis" className="hover:text-red-400 transition-colors">Asayiş</Link></li>
-              <li><Link href="/spor" className="hover:text-red-400 transition-colors">Spor</Link></li>
-              <li><Link href="/politika" className="hover:text-red-400 transition-colors">Politika</Link></li>
+              <li><Link href="/kategori/gundem" className="hover:text-red-400 transition-colors">Gündem</Link></li>
+              <li><Link href="/kategori/yerel" className="hover:text-red-400 transition-colors">Yerel Haberler</Link></li>
+              <li><Link href="/kategori/asayis" className="hover:text-red-400 transition-colors">Asayiş</Link></li>
+              <li><Link href="/kategori/spor" className="hover:text-red-400 transition-colors">Spor</Link></li>
+              <li><Link href="/kategori/politika" className="hover:text-red-400 transition-colors">Politika</Link></li>
             </ul>
           </div>
 
@@ -54,7 +54,7 @@ export default function Footer() {
             </h3>
             <div className="text-sm space-y-4 text-gray-400">
               <p>Çanakkale Merkez, Türkiye</p>
-              <p>Email: <a href="mailto:info@canakkalehaber.com" className="text-gray-300 hover:text-white">info@canakkalehaber.com</a></p>
+              <p>Email: <a href="mailto:info@truvahaber.com" className="text-gray-300 hover:text-white">info@truvahaber.com</a></p>
               <p>Tel: <a href="tel:+902861234567" className="text-gray-300 hover:text-white">+90 (286) 123 45 67</a></p>
               
               <div className="pt-4 flex gap-4">

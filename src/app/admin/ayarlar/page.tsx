@@ -8,10 +8,7 @@ import {
   Smartphone,
   Layout,
   Shield,
-  Palette,
-  Bell,
   Database,
-  Mail
 } from 'lucide-react';
 
 export default function SettingsPage() {
