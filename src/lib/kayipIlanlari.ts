@@ -34,13 +34,11 @@ export const ilanTipiAdi = (tip: IlanTipi) => ilanTipleri.find(t => t.id === tip
 export const formatTarih = (tarih: string) => tarih.split('-').reverse().join('.');
 
 const seciliIlanlar: KayipIlani[] = [
-  { id: 'k1', tarih: '2026-10-02', tip: 'ogrenci-kimligi', bolge: 'Merkez', metin: 'Çanakkale Onsekiz Mart Üniversitesi öğrenci kimliğimi kaybettim. Hükümsüzdür. Mert Yıldız' },
   { id: 'k2', tarih: '2026-10-01', tip: 'surucu-belgesi', bolge: 'Biga', metin: 'Sürücü belgemi kaybettim. Hükümsüzdür. Zeynep Kara' },
   { id: 'k3', tarih: '2026-09-30', tip: 'tekne-ruhsati', bolge: 'Gökçeada', metin: 'Kuzu Limanı\'na kayıtlı balıkçı teknemin ruhsatını kaybettim. Hükümsüzdür. Hüseyin Ateş' },
   { id: 'k4', tarih: '2026-09-29', tip: 'kimlik-karti', bolge: 'Gelibolu', metin: 'T.C. kimlik kartımı kaybettim. Hükümsüzdür. Emre Aydın' },
   { id: 'k5', tarih: '2026-09-27', tip: 'vergi-levhasi', bolge: 'Merkez', metin: 'Kordon Gıda Ltd. Şti.\'ne ait vergi levhası kaybolmuştur. Hükümsüzdür.' },
   { id: 'k23', tarih: '2026-09-25', tip: 'ogrenci-kimligi', bolge: 'Merkez', metin: 'Çanakkale Onsekiz Mart Üniversitesi öğrenci kimlik kartımı kaybettim. Hükümsüzdür. Hasan Kaşıkcı' },
-  { id: 'k6', tarih: '2026-09-26', tip: 'ogrenci-kimligi', bolge: 'Biga', metin: 'ÇOMÜ Biga İktisadi ve İdari Bilimler Fakültesi öğrenci kimliğimi kaybettim. Hükümsüzdür. Selin Koç' },
   { id: 'k7', tarih: '2026-09-24', tip: 'arac-ruhsati', bolge: 'Çan', metin: '17 plakalı aracıma ait ruhsatı kaybettim. Hükümsüzdür. Burak Şahin' },
   { id: 'k8', tarih: '2026-09-22', tip: 'diploma', bolge: 'Ezine', metin: 'Ezine Anadolu Lisesi\'nden 2015 yılında aldığım lise diplomamı kaybettim. Hükümsüzdür. Elif Çetin' },
   { id: 'k9', tarih: '2026-09-20', tip: 'pasaport', bolge: 'Merkez', metin: 'Umuma mahsus pasaportumu kaybettim. Hükümsüzdür. Can Öztürk' },
@@ -292,6 +290,10 @@ for (let i = 0, gunOnce = 0; i < URETILECEK_ILAN; i++) {
   });
 }
 
-export const kayipIlanlari: KayipIlani[] = [...seciliIlanlar, ...uretilenIlanlar].sort((a, b) =>
-  b.tarih.localeCompare(a.tarih)
-);
+// Hasan Kaşıkcı ilanı (25 Eylül) en yeni öğrenci kimliği ilanı olarak kalsın
+const SON_OGRENCI_ILANI_TARIHI = '2026-09-25';
+
+export const kayipIlanlari: KayipIlani[] = [
+  ...seciliIlanlar,
+  ...uretilenIlanlar.filter(i => !(i.tip === 'ogrenci-kimligi' && i.tarih > SON_OGRENCI_ILANI_TARIHI)),
+].sort((a, b) => b.tarih.localeCompare(a.tarih));
