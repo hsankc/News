@@ -4,6 +4,7 @@ import ColumnistsSection from '@/components/news/ColumnistsSection';
 import GallerySection from '@/components/news/GallerySection';
 import SonEklenenler from '@/components/news/SonEklenenler';
 import ServicesBar from '@/components/news/ServicesBar';
+import SonKayipIlanlari from '@/components/ilan/SonKayipIlanlari';
 import { getLiveData } from '@/lib/liveData';
 
 export default async function Home() {
@@ -20,7 +21,9 @@ export default async function Home() {
       <CategorySection categoryName="Son Haberler" />
 
       <SonEklenenler />
-      
+
+      <SonKayipIlanlari />
+
       <ColumnistsSection />
       
       <GallerySection />

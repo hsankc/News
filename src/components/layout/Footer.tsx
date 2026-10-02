@@ -38,6 +38,7 @@ export default function Footer() {
               Kurumsal
             </h3>
             <ul className="space-y-2 text-sm">
+              <li><Link href="/kayip-ilanlari" className="hover:text-red-400 transition-colors">Kayıp İlanları</Link></li>
               <li><Link href="/kunye" className="hover:text-red-400 transition-colors">Künye</Link></li>
               <li><Link href="/iletisim" className="hover:text-red-400 transition-colors">İletişim</Link></li>
               <li><Link href="/gizlilik" className="hover:text-red-400 transition-colors">Gizlilik İlkeleri</Link></li>

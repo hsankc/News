@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from 'react';
-import { Pill, Clock, Star, Trophy, X, CloudSun, TrendingUp, Calendar, Newspaper, Ship, Bus } from 'lucide-react';
+import Link from 'next/link';
+import { Pill, Clock, Star, Trophy, X, CloudSun, TrendingUp, Calendar, Newspaper, Ship, Bus, FileSearch } from 'lucide-react';
 import { eczaneler, burclar, puanDurumu, fikstur, mansetler, gestasSeferleri, otobusSaatleri } from '@/lib/servicesData';
 import type { LiveData } from '@/lib/liveData';
 
@@ -47,6 +48,13 @@ export default function ServicesBar({ live }: { live: LiveData }) {
             </button>
           );
         })}
+        <Link
+          href="/kayip-ilanlari"
+          className="flex items-center gap-1.5 px-3 py-2 md:px-4 md:py-2.5 rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest whitespace-nowrap transition-all shrink-0 border-2 bg-white border-red-500/40 text-slate-700 hover:border-red-600 hover:bg-red-50 hover:text-red-700 hover:shadow-md hover:-translate-y-0.5"
+        >
+          <FileSearch className="h-4 w-4 md:h-5 md:w-5 text-red-500" />
+          Kayıp İlanları
+        </Link>
       </div>
 
       {/* Expandable Panel */}

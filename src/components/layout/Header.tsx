@@ -47,6 +47,7 @@ export default function Header({ live }: { live: LiveData }) {
             </div>
 
             <div className="flex gap-6 items-center">
+              <Link href="/kayip-ilanlari" className="hover:text-red-500 transition-colors">Kayıp İlanları</Link>
               <Link href="/kunye" className="hover:text-red-500 transition-colors">Künye</Link>
               <Link href="/iletisim" className="hover:text-red-500 transition-colors">İletişim</Link>
               <Link href="/reklam" className="hover:text-red-500 transition-colors border-l border-white/10 pl-6">Reklam Ver</Link>
@@ -322,6 +323,7 @@ export default function Header({ live }: { live: LiveData }) {
                   <div className="mt-8 border-t border-slate-100 pt-8">
                      <span className="text-[10px] font-black text-slate-300 uppercase tracking-[0.3em] block mb-4">Kurumsal</span>
                      <div className="grid grid-cols-1 gap-2">
+                        <Link href="/kayip-ilanlari" onClick={() => setIsMenuOpen(false)} className="text-sm font-bold text-slate-500 hover:text-red-600 transition-colors p-2">Kayıp İlanları</Link>
                         <Link href="/kunye" className="text-sm font-bold text-slate-500 hover:text-red-600 transition-colors p-2">Künye</Link>
                         <Link href="/iletisim" className="text-sm font-bold text-slate-500 hover:text-red-600 transition-colors p-2">İletişim</Link>
                         <Link href="/reklam" className="text-sm font-bold text-slate-500 hover:text-red-600 transition-colors p-2">Reklam Ver</Link>
