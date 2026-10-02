@@ -260,12 +260,12 @@ export default function AdminDashboard() {
         </div>
         <div className="divide-y divide-slate-50">
           {[
-            { time: '2 dk önce', text: 'Mehmet K. "1915 Çanakkale Köprüsü" haberine yorum yaptı', type: 'comment', color: 'bg-blue-500' },
-            { time: '15 dk önce', text: '"Bağ Bozumu Festivali başladı" haberi yayınlandı', type: 'publish', color: 'bg-green-500' },
+            { time: '2 dk önce', text: 'Mehmet K. "Boğaz\'da Sis Alarmı" haberine yorum yaptı', type: 'comment', color: 'bg-blue-500' },
+            { time: '15 dk önce', text: '"Boğaz\'da Palamut Bolluğu" haberi yayınlandı', type: 'publish', color: 'bg-green-500' },
             { time: '1 saat önce', text: 'Galeri\'ye 4 yeni görsel eklendi', type: 'media', color: 'bg-purple-500' },
-            { time: '2 saat önce', text: 'Ayşe D. "Çanakkale siyaseti" haberine yorum yaptı', type: 'comment', color: 'bg-blue-500' },
+            { time: '2 saat önce', text: 'Ayşe D. "Saat Kulesi Çevresi Yayalaştırılıyor" haberine yorum yaptı', type: 'comment', color: 'bg-blue-500' },
             { time: '3 saat önce', text: 'Sistem performans optimizasyonu tamamlandı', type: 'system', color: 'bg-amber-500' },
-            { time: '5 saat önce', text: '"ÇOMÜ Öğretim Üyesine ödül" haberi güncellendi', type: 'edit', color: 'bg-sky-500' },
+            { time: '5 saat önce', text: '"29 Ekim Hazırlıkları Başladı" haberi güncellendi', type: 'edit', color: 'bg-sky-500' },
           ].map((item, i) => (
             <div key={i} className="p-4 md:p-6 flex items-center gap-4 hover:bg-slate-50/50 transition-all">
               <div className={`w-2.5 h-2.5 ${item.color} rounded-full flex-shrink-0`} />
