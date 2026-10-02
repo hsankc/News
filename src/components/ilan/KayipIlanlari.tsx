@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from 'react';
-import { Search, Plus, X, CheckCircle2 } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Search, Plus, X, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
 import {
   bolgeler,
   formatTarih,
@@ -26,6 +26,21 @@ const loadSaved = (): KayipIlani[] => {
 
 const isIlanTipi = (value?: string): value is IlanTipi => ilanTipleri.some(t => t.id === value);
 
+const SAYFA_BASINA = 50;
+
+// 1 … 4 5 6 … 12 biçiminde sayfa numaraları
+const sayfaNumaralari = (current: number, total: number): (number | '…')[] => {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+  const pages: (number | '…')[] = [1];
+  const start = Math.max(2, current - 1);
+  const end = Math.min(total - 1, current + 1);
+  if (start > 2) pages.push('…');
+  for (let p = start; p <= end; p++) pages.push(p);
+  if (end < total - 1) pages.push('…');
+  pages.push(total);
+  return pages;
+};
+
 export default function KayipIlanlari({ initialTip, initialFormOpen = false }: { initialTip?: string; initialFormOpen?: boolean }) {
   const [saved, setSaved] = useState<KayipIlani[]>([]);
   const [query, setQuery] = useState('');
@@ -46,6 +61,20 @@ export default function KayipIlanlari({ initialTip, initialFormOpen = false }: {
   }, [saved, query, tip, bolge]);
 
   const hasFilter = Boolean(query || tip || bolge);
+
+  const [page, setPage] = useState(1);
+  const listTopRef = useRef<HTMLDivElement>(null);
+  useEffect(() => setPage(1), [query, tip, bolge, saved]);
+
+  const pageCount = Math.max(1, Math.ceil(ilanlar.length / SAYFA_BASINA));
+  const sayfadakiIlanlar = ilanlar.slice((page - 1) * SAYFA_BASINA, page * SAYFA_BASINA);
+  const ilkSira = ilanlar.length ? (page - 1) * SAYFA_BASINA + 1 : 0;
+  const sonSira = (page - 1) * SAYFA_BASINA + sayfadakiIlanlar.length;
+
+  const goToPage = (p: number) => {
+    setPage(p);
+    listTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   const handleAdd = (ilan: KayipIlani) => {
     const next = [ilan, ...saved];
@@ -107,8 +136,11 @@ export default function KayipIlanlari({ initialTip, initialFormOpen = false }: {
         </select>
       </div>
 
-      <div className="flex items-center justify-between text-sm">
-        <p className="text-gray-500"><span className="font-black text-gray-900">{ilanlar.length}</span> ilan listeleniyor</p>
+      <div ref={listTopRef} className="flex items-center justify-between text-sm scroll-mt-32">
+        <p className="text-gray-500">
+          Toplam <span className="font-black text-gray-900">{ilanlar.length}</span> ilan
+          {ilanlar.length > 0 && <> • {ilkSira}–{sonSira} arası gösteriliyor</>}
+        </p>
         {hasFilter && (
           <button onClick={() => { setQuery(''); setTip(''); setBolge(''); }} className="inline-flex items-center gap-1 font-bold text-red-600 hover:text-red-800">
             <X className="h-4 w-4" /> Filtreleri temizle
@@ -134,7 +166,7 @@ export default function KayipIlanlari({ initialTip, initialFormOpen = false }: {
                 </tr>
               </thead>
               <tbody>
-                {ilanlar.map((ilan, idx) => (
+                {sayfadakiIlanlar.map((ilan, idx) => (
                   <tr key={ilan.id} className={`border-t border-gray-100 hover:bg-red-50/40 transition-colors ${idx % 2 ? 'bg-gray-50/60' : ''}`}>
                     <td className="py-3.5 px-5 text-gray-700 whitespace-nowrap align-top">
                       {formatTarih(ilan.tarih)}
@@ -157,7 +189,7 @@ export default function KayipIlanlari({ initialTip, initialFormOpen = false }: {
 
           {/* Mobil: kartlar */}
           <div className="md:hidden space-y-3">
-            {ilanlar.map(ilan => (
+            {sayfadakiIlanlar.map(ilan => (
               <div key={ilan.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
                 <div className="flex items-center justify-between gap-2 mb-2 text-[11px] font-black uppercase tracking-wider">
                   <span className="text-red-600">
@@ -173,6 +205,45 @@ export default function KayipIlanlari({ initialTip, initialFormOpen = false }: {
               </div>
             ))}
           </div>
+
+          {pageCount > 1 && (
+            <nav aria-label="Sayfalar" className="flex items-center justify-center gap-1.5 pt-2">
+              <button
+                onClick={() => goToPage(page - 1)}
+                disabled={page === 1}
+                aria-label="Önceki sayfa"
+                className="p-2.5 rounded-xl bg-white border border-gray-200 text-gray-600 hover:border-red-500 hover:text-red-600 disabled:opacity-40 disabled:pointer-events-none transition-colors"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
+              {sayfaNumaralari(page, pageCount).map((p, i) =>
+                p === '…' ? (
+                  <span key={`bosluk-${i}`} className="px-1 text-gray-400 font-bold">…</span>
+                ) : (
+                  <button
+                    key={p}
+                    onClick={() => goToPage(p)}
+                    aria-current={p === page ? 'page' : undefined}
+                    className={`min-w-[40px] h-10 px-3 rounded-xl text-sm font-black transition-colors ${
+                      p === page
+                        ? 'bg-red-600 text-white shadow-lg shadow-red-200'
+                        : 'bg-white border border-gray-200 text-gray-600 hover:border-red-500 hover:text-red-600'
+                    }`}
+                  >
+                    {p}
+                  </button>
+                )
+              )}
+              <button
+                onClick={() => goToPage(page + 1)}
+                disabled={page === pageCount}
+                aria-label="Sonraki sayfa"
+                className="p-2.5 rounded-xl bg-white border border-gray-200 text-gray-600 hover:border-red-500 hover:text-red-600 disabled:opacity-40 disabled:pointer-events-none transition-colors"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </button>
+            </nav>
+          )}
         </>
       )}
     </div>
